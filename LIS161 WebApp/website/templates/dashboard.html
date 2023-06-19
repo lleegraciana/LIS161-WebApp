@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1> Tasks and Deliverables Tracker </h1>
+
+<div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Category</th>
+      <th scope="col">Task</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in user.deliverable %}
+    <tr>
+      <th scope="row"> {{ task.category }} </th>
+      <th> {{ task.entry }} </th>
+      <th> {{ task.notes }} </th>
+      <th> {{ task.duedate }} </th>
+      <th> <button type="button" class="btn btn-outline-warning btn-sm" href="{{ url_for('views.update_deliverable', deliverable_id=task.id) }}"> Update </button>
+           <br/>
+           <form method="POST" action="{{ url_for('views.delete_deliverable', deliverable_id=task.id) }}">
+            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+        </form>
+    
+      </th>
+    </tr>
+    {% endfor %}
+  </div>
+</table>
+</br>
+
+<div>
+  <form method ="POST">
+    <input id="datetime-input" class="form-control" type="text" placeholder="Disabled input" aria-label="Disabled input example" disabled>
+      <script>
+        var currentDatetime = new Date().toLocaleString();
+        document.getElementById('datetime-input').value = currentDatetime;
+      </script>
+  
+    <br/>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Category</span>
+        <input type="text" name="category1" id="category1" class="form-control" placeholder="Category" aria-label="Category" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Task/Deliverable</span>
+        <input type="text" name="task" id="task" class="form-control" placeholder="Task/Deliverable" aria-label="Task/Deliverable" aria-describedby="basic-addon2">
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-text">Notes</span>
+        <textarea name="notesarea" id="notesarea" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+
+      <br/>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">Due Date</span>
+        <input type="text" name="ddl" id="ddl" class="form-control" placeholder="Due date" aria-label="Due date" aria-describedby="basic-addon3">
+      </div>
+
+
+    <div align="center">
+        <button type="submit" class="btn btn-outline-success"> Add Task/Deliverable
+        </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

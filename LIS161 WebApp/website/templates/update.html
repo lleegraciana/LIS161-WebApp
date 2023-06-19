@@ -1,0 +1,31 @@
+{% extends 'base.html' %}{% block title %}Update task info{% endblock %}
+
+{% block content %}
+<div>
+  <h2>Update Deliverable</h2>
+
+  <form method="POST" action="{{ url_for('views.update_deliverable', deliverable_id=deliverable.id) }}">
+    <div class="mb-3">
+      <label for="entry" class="form-label">Entry:</label>
+      <input type="text" class="form-control" id="entry" name="entry" value="{{ deliverable.entry }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="duedate" class="form-label">Due Date:</label>
+      <input type="text" class="form-control" id="duedate" name="duedate" value="{{ deliverable.duedate }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category:</label>
+      <input type="text" class="form-control" id="category" name="category" value="{{ deliverable.category }}">
+    </div>
+
+    <div class="mb-3">
+      <label for="notes" class="form-label">Notes:</label>
+      <textarea class="form-control" id="notes" name="notes">{{ deliverable.notes }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>
+{% endblock %}
